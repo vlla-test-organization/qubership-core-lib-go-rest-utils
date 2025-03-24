@@ -1,0 +1,7 @@
+namespace: test_namespace
+
+microservice.url: http://test-microservice:8080
+
+microservice.name: test_service
+
+deployment.version: v2
