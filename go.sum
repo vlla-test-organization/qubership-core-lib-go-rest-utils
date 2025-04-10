@@ -152,8 +152,8 @@ github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd/go.mod h1:6dJ
 github.com/modern-go/reflect2 v0.0.0-20180701023420-4b7aa43c6742/go.mod h1:bx2lNnkwVCuqBIxFjflWJWanXIb3RllmbCylyMrvgv0=
 github.com/modern-go/reflect2 v1.0.1/go.mod h1:bx2lNnkwVCuqBIxFjflWJWanXIb3RllmbCylyMrvgv0=
 github.com/mwitkow/go-conntrack v0.0.0-20161129095857-cc309e4a2223/go.mod h1:qRWi+5nqEBWmkhHvq77mSJWrCKwh8bxhgT7d/eI7P4U=
-github.com/netcracker/qubership-core-lib-go/v3 v3.0.0-20250410081115-1c9da615f794 h1:U/oqVg9XMajBNkPF2u53FoV09IcpMBQ2+XOMUAycU/I=
-github.com/netcracker/qubership-core-lib-go/v3 v3.0.0-20250410081115-1c9da615f794/go.mod h1:1EKZPAtxng7sFKRm+MjnsQ4wJfe1+/zxjuhli6kIRLQ=
+github.com/netcracker/qubership-core-lib-go/v3 v3.0.0-20250410090100-eded4c69a462 h1:5nwCXm+cCxzGpqvUwrTS4xzgzK4WCC82xBj6yfCbln0=
+github.com/netcracker/qubership-core-lib-go/v3 v3.0.0-20250410090100-eded4c69a462/go.mod h1:1EKZPAtxng7sFKRm+MjnsQ4wJfe1+/zxjuhli6kIRLQ=
 github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e h1:fD57ERR4JtEqsWbfPhv4DMiApHyliiK5xCTNVSPiaAs=
 github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e/go.mod h1:zD1mROLANZcx1PVRCS0qkT7pwLkGfwJo4zjcN/Tysno=
 github.com/pascaldekloe/goe v0.0.0-20180627143212-57f6aae5913c/go.mod h1:lzWF7FIEvWOWxwDKqyGYQf6ZUaNfKdP144TG7ZOy1lc=
