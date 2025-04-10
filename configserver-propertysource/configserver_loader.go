@@ -13,18 +13,14 @@ import (
 	"github.com/knadh/koanf/maps"
 	"github.com/knadh/koanf/v2"
 	"github.com/netcracker/qubership-core-lib-go/v3/configloader"
+	constants "github.com/netcracker/qubership-core-lib-go/v3/const"
+	"github.com/netcracker/qubership-core-lib-go/v3/security"
 	"github.com/netcracker/qubership-core-lib-go/v3/serviceloader"
 	"github.com/netcracker/qubership-core-lib-go/v3/utils"
-	"github.com/netcracker/qubership-core-lib-go/v3/const"
 )
-
 
 type configServerLoader struct {
 	propertySourceConfiguration *PropertySourceConfiguration
-}
-
-func init() {
-	serviceloader.Register(2, &serviceloader.Token{})
 }
 
 func newConfigServerLoader(params *PropertySourceConfiguration) *configServerLoader {
@@ -46,7 +42,7 @@ func (this *configServerLoader) Read(*koanf.Koanf) (map[string]interface{}, erro
 
 func getConfigServerProperties(params *PropertySourceConfiguration) (map[string]interface{}, error) {
 	microserviceName, configServerUrl := getMicroserviceNameAndURL(params)
-	tokenProvider := serviceloader.MustLoad[serviceloader.TokenProvider]()
+	tokenProvider := serviceloader.MustLoad[security.TokenProvider]()
 	token, err := tokenProvider.GetToken(context.Background())
 	if err != nil {
 		err = fmt.Errorf("could not get token to load properties from config-server, err: %w", err)
@@ -54,7 +50,9 @@ func getConfigServerProperties(params *PropertySourceConfiguration) (map[string]
 	}
 	client := utils.GetClient()
 	req, _ := http.NewRequest("GET", fmt.Sprintf("%s/%s/default", configServerUrl, microserviceName), nil)
-	if token != "" { req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", token)) }
+	if token != "" {
+		req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", token))
+	}
 	res, err := client.Do(req)
 	if err != nil {
 		log.Printf("Failed send requst to config-server: %s", err)

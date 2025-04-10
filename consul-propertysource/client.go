@@ -14,23 +14,22 @@ import (
 	"github.com/avast/retry-go/v4"
 	consulApi "github.com/hashicorp/consul/api"
 	"github.com/netcracker/qubership-core-lib-go/v3/logging"
-	"github.com/netcracker/qubership-core-lib-go/v3/utils"
+	"github.com/netcracker/qubership-core-lib-go/v3/security"
 	"github.com/netcracker/qubership-core-lib-go/v3/serviceloader"
+	"github.com/netcracker/qubership-core-lib-go/v3/utils"
 )
-
 
 var logger logging.Logger
 
 func init() {
 	logger = logging.GetLogger("consul-property-source")
-	serviceloader.Register(2, &serviceloader.Token{})
 }
 
 type ClientConfig struct {
-	Address     string
-	Namespace   string
-	Ctx         context.Context
-	Token       *ClientToken
+	Address       string
+	Namespace     string
+	Ctx           context.Context
+	Token         *ClientToken
 	tokenProvider func() (string, error)
 }
 
@@ -50,7 +49,7 @@ type ClientToken struct {
 func NewClient(cfg ClientConfig) *Client {
 	if cfg.tokenProvider == nil {
 		cfg.tokenProvider = func() (string, error) {
-		    tokenProvider := serviceloader.MustLoad[serviceloader.TokenProvider]()
+			tokenProvider := serviceloader.MustLoad[security.TokenProvider]()
 			return tokenProvider.GetToken(cfg.Ctx)
 		}
 	}
@@ -115,7 +114,7 @@ func newConsulApiClient(addr, token string) *consulApi.Client {
 func (r *Client) getSecretIdByToken(token string) (string, *time.Time, error) {
 	consulUrl := strings.TrimSuffix(r.cfg.Address, "/")
 	payload := map[string]string{
-		"Accept":  "application/json",
+		"Accept": "application/json",
 	}
 	returnOnError := "anonymous"
 	if token != "" {

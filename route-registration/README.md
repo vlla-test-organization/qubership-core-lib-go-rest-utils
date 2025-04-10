@@ -117,12 +117,15 @@ package main
 
 import (
   "github.com/configloader-base/configloader"
+  "github.com/netcracker/qubership-core-lib-go/v3/serviceloader"
+	"github.com/netcracker/qubership-core-lib-go/v3/security"
   "github.com/netcracker/go-route-registration-lib/routeregistration"
   "time"
-)github.com
+)
 
 func init() {
   configloader.Init(configloader.BasePropertySources())
+  serviceloader.Register(1, &security.DummyToken{}) // replace with own implementation if required
 }
 
 func main() {

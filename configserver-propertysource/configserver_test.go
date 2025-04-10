@@ -10,6 +10,8 @@ import (
 	"testing"
 
 	"github.com/netcracker/qubership-core-lib-go/v3/configloader"
+	"github.com/netcracker/qubership-core-lib-go/v3/serviceloader"
+	"github.com/netcracker/qubership-core-lib-go/v3/security"
 	"github.com/netcracker/qubership-core-lib-go/v3/test"
 	"github.com/stretchr/testify/assert"
 )
@@ -18,6 +20,10 @@ const (
 	configserverKey   = "key"
 	configserverValue = "value"
 )
+
+func init () {
+	serviceloader.Register(2, &security.DummyToken{})
+}
 
 func TestConfigServerPropertySource_WithoutMandatoryProperties(t *testing.T) {
 	assert.Panics(t, func() {

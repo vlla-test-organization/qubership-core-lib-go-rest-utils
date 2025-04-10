@@ -15,13 +15,13 @@ import (
 	"github.com/netcracker/qubership-core-lib-go/v3/utils"
 	"github.com/netcracker/qubership-core-lib-go/v3/const"
 	"github.com/netcracker/qubership-core-lib-go/v3/serviceloader"
+	"github.com/netcracker/qubership-core-lib-go/v3/security"
 )
 
 var log logging.Logger
 
 func init() {
 	log = logging.GetLogger("routemanagement")
-	serviceloader.Register(2, &serviceloader.Token{})
 }
 
 type ControlPlaneClient struct {
@@ -70,7 +70,7 @@ func (client *ControlPlaneClient) SendRequest(request RegistrationRequest) {
 
 func (client *ControlPlaneClient) sendRequestWithRetry(url string, payload []byte) {
 	client.retryManager.DoWithRetry(func() error {
-	    tokenProvider := serviceloader.MustLoad[serviceloader.TokenProvider]()
+	    tokenProvider := serviceloader.MustLoad[security.TokenProvider]()
 		token, err := tokenProvider.GetToken(context.Background())
 		if err != nil {
 			log.Errorf("Go error %+v during receiving m2m token", err.Error())
