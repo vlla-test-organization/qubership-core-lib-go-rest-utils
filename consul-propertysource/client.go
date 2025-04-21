@@ -79,14 +79,17 @@ func (r *Client) Login() error {
 	if err != nil {
 		return err
 	}
-	r.token = &ClientToken{}
-	r.token.val.Store(secretId)
-	r.token.expirationTime = *expTime
 	r.consul = newConsulApiClient(r.cfg.Address, secretId)
+	r.token = &ClientToken{}
 
-	r.tokenWatch.Do(func() {
-		r.startWatchSecretId(expTime.Sub(time.Now().Add(thresholdBeforeUpdate)))
-	})
+	if secretId != "" {
+		r.token.val.Store(secretId)
+		r.token.expirationTime = *expTime
+		r.tokenWatch.Do(func() {
+			r.startWatchSecretId(expTime.Sub(time.Now().Add(thresholdBeforeUpdate)))
+		})
+	}
+
 	return nil
 }
 
@@ -94,6 +97,7 @@ func (r *Client) SecretId() string {
 	tokenValue, _ := r.token.val.Load().(string)
 	return tokenValue
 }
+
 func newConsulApiClient(addr, token string) *consulApi.Client {
 	consulConfig := consulApi.DefaultConfig()
 	consulConfig.Address = strings.TrimSuffix(addr, "/")
@@ -163,6 +167,9 @@ func (r *Client) getSecretId() (string, *time.Time, error) {
 	token, err := r.cfg.tokenProvider()
 	if err != nil {
 		return "", nil, fmt.Errorf("failed to get token: %w", err)
+	}
+	if token == "" {
+		return "", nil, nil
 	}
 	secretId, expTime, err := r.getSecretIdByToken(token)
 	if err != nil {

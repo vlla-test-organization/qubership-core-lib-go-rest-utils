@@ -13,14 +13,8 @@ import (
 
 	"github.com/hashicorp/consul/api"
 	"github.com/netcracker/qubership-core-lib-go/v3/configloader"
-	"github.com/netcracker/qubership-core-lib-go/v3/serviceloader"
-	"github.com/netcracker/qubership-core-lib-go/v3/security"
 	"github.com/stretchr/testify/assert"
 )
-
-func init () {
-	serviceloader.Register(2, &security.DummyToken{})
-}
 
 func TestConsul_getSecretIdByToken(t *testing.T) {
 	timeStr := time.Now().Format(time.RFC3339)
@@ -158,6 +152,23 @@ func TestClient_LoginError(t *testing.T) {
 	assert.NotNil(t, err)
 	expectedError := fmt.Sprintf("failed to get consul secret ID by token: non 200 response from Consul to request '%s/v1/acl/login': 403 - Permission denied", testServer.URL)
 	assert.Equal(t, expectedError, err.Error())
+}
+
+func TestClient_LoginEmptyToken(t *testing.T) {
+	configloader.InitWithSourcesArray([]*configloader.PropertySource{configloader.EnvPropertySource()})
+
+	client := NewClient(ClientConfig{
+		Address:   "test:8500",
+		Namespace: "test",
+		Ctx:       context.Background(),
+		tokenProvider: func() (string, error) {
+			return "", nil
+		},
+	})
+	assert.Nil(t, client.token)
+	err := client.Login()
+	assert.NoError(t, err)
+	assert.Nil(t, client.token.val.Load())
 }
 
 func TestClient_startWatchSecretId(t *testing.T) {

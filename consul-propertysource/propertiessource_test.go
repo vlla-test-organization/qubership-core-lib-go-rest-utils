@@ -17,15 +17,23 @@ import (
 	"github.com/hashicorp/consul/api"
 	"github.com/knadh/koanf/v2"
 	"github.com/netcracker/qubership-core-lib-go/v3/configloader"
-	"github.com/netcracker/qubership-core-lib-go/v3/serviceloader"
-	"github.com/netcracker/qubership-core-lib-go/v3/security"
 	"github.com/netcracker/qubership-core-lib-go/v3/logging"
+	"github.com/netcracker/qubership-core-lib-go/v3/security"
+	"github.com/netcracker/qubership-core-lib-go/v3/serviceloader"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
-func init () {
-	serviceloader.Register(2, &security.DummyToken{})
+func init() {
+	serviceloader.Register(2, &constToken{})
+}
+
+type constToken struct {
+	security.DummyToken
+}
+
+func (constToken) GetToken(_ context.Context) (string, error) {
+	return "token", nil
 }
 
 func Test_kvToMap(t *testing.T) {
