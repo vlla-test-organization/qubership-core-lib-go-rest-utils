@@ -183,15 +183,35 @@ func TestAddConsulPropertySource(t *testing.T) {
 	testValue := "test-value"
 
 	os.Setenv("consul.url", ts.URL)
+	os.Setenv("microservice.namespace", "test-namespace")
+	os.Setenv("microservice.name", "test-name")
 	defer func() {
 		ts.Close()
 		os.Clearenv()
 	}()
 	configloader.InitWithSourcesArray([]*configloader.PropertySource{configloader.EnvPropertySource()})
 	assert.Empty(t, configloader.GetOrDefaultString(testKey, ""))
-	propertySource := AddConsulPropertySource(([]*configloader.PropertySource{configloader.EnvPropertySource()}), ProviderConfig{})
+	propertySource := AddConsulPropertySource([]*configloader.PropertySource{configloader.EnvPropertySource()}, ProviderConfig{})
 	configloader.InitWithSourcesArray(propertySource)
 	assert.Equal(t, testValue, configloader.GetOrDefaultString(testKey, ""))
+}
+
+func TestAddConsulPropertySource_PanicOnEmptyNamespace(t *testing.T) {
+	ts := createTestHttpServer()
+
+	os.Setenv("consul.url", ts.URL)
+	os.Unsetenv("microservice.namespace")
+	defer func() {
+		ts.Close()
+		os.Clearenv()
+	}()
+
+	configloader.InitWithSourcesArray([]*configloader.PropertySource{configloader.EnvPropertySource()})
+	propertySource := AddConsulPropertySource([]*configloader.PropertySource{configloader.EnvPropertySource()}, ProviderConfig{})
+
+	assert.PanicsWithValue(t, "invalid value: microservice.namespace=", func() {
+		configloader.InitWithSourcesArray(propertySource)
+	})
 }
 
 func TestConsulReturnsFlattenMap(t *testing.T) {
