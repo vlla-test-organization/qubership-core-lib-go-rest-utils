@@ -182,6 +182,8 @@ func TestAddConsulPropertySource(t *testing.T) {
 	testKey := "test-key"
 	testValue := "test-value"
 
+	os.Setenv("microservice.namespace", "test-namespace")
+	os.Setenv("microservice.name", "test-name")
 	os.Setenv("consul.url", ts.URL)
 	defer func() {
 		ts.Close()
@@ -189,19 +191,38 @@ func TestAddConsulPropertySource(t *testing.T) {
 	}()
 	configloader.InitWithSourcesArray([]*configloader.PropertySource{configloader.EnvPropertySource()})
 	assert.Empty(t, configloader.GetOrDefaultString(testKey, ""))
-	propertySource := AddConsulPropertySource(([]*configloader.PropertySource{configloader.EnvPropertySource()}), ProviderConfig{})
+	propertySource := AddConsulPropertySource([]*configloader.PropertySource{configloader.EnvPropertySource()}, ProviderConfig{})
 	configloader.InitWithSourcesArray(propertySource)
 	assert.Equal(t, testValue, configloader.GetOrDefaultString(testKey, ""))
 }
 
+func TestAddConsulPropertySource_PanicOnEmptyNamespace(t *testing.T) {
+	ts := createTestHttpServer()
+
+	os.Setenv("consul.url", ts.URL)
+	os.Unsetenv("microservice.namespace")
+	defer func() {
+		ts.Close()
+		os.Clearenv()
+	}()
+
+	configloader.InitWithSourcesArray([]*configloader.PropertySource{configloader.EnvPropertySource()})
+	propertySource := AddConsulPropertySource([]*configloader.PropertySource{configloader.EnvPropertySource()}, ProviderConfig{})
+
+	assert.PanicsWithValue(t, "invalid value: microservice.namespace=", func() {
+		configloader.InitWithSourcesArray(propertySource)
+	})
+}
+
 func TestConsulReturnsFlattenMap(t *testing.T) {
 	ts := createTestHttpServer()
+	os.Setenv("microservice.namespace", "test-namespace")
+	os.Setenv("microservice.name", "test-name")
 	os.Setenv("consul.url", ts.URL)
 	os.Setenv("key", "env-value")
 	defer func() {
 		ts.Close()
-		os.Unsetenv("consul.url")
-		os.Unsetenv("key")
+		os.Clearenv()
 	}()
 	propertySource := AddConsulPropertySource(([]*configloader.PropertySource{configloader.EnvPropertySource()}), ProviderConfig{})
 	configloader.InitWithSourcesArray(propertySource)
@@ -212,9 +233,13 @@ func TestConsulReturnsFlattenMap(t *testing.T) {
 
 func TestConsulPropertySource_InitializeClientSingleTime(t *testing.T) {
 	ts := createTestHttpServer()
+	os.Setenv("microservice.namespace", "test-namespace")
+	os.Setenv("microservice.name", "test-name")
 	os.Setenv("consul.url", ts.URL)
-	defer os.Unsetenv("consul.url")
-	defer ts.Close()
+	defer func() {
+		ts.Close()
+		os.Clearenv()
+	}()
 	sources := AddConsulPropertySource([]*configloader.PropertySource{configloader.EnvPropertySource()}, ProviderConfig{
 		Address: ts.URL,
 	})
@@ -254,9 +279,13 @@ func TestConsulPropertySource_FailsafeDuringLoad(t *testing.T) {
 		}
 	}))
 
+	os.Setenv("microservice.namespace", "test-namespace")
+	os.Setenv("microservice.name", "test-name")
 	os.Setenv("consul.url", ts.URL)
-	defer os.Unsetenv("consul.url")
-	defer ts.Close()
+	defer func() {
+		ts.Close()
+		os.Clearenv()
+	}()
 
 	sources := AddConsulPropertySource([]*configloader.PropertySource{configloader.EnvPropertySource()}, ProviderConfig{
 		Address:          ts.URL,
@@ -409,9 +438,13 @@ func createJsonResponse(counter int) string {
 
 func TestConsulCallsWatchMethod(t *testing.T) {
 	ts := createTestHttpServer()
+	os.Setenv("microservice.namespace", "test-namespace")
+	os.Setenv("microservice.name", "test-name")
 	os.Setenv("consul.url", ts.URL)
-	defer os.Unsetenv("consul.url")
-	defer ts.Close()
+	defer func() {
+		ts.Close()
+		os.Clearenv()
+	}()
 	propertySources := []*configloader.PropertySource{configloader.EnvPropertySource()}
 	consulPropertySource := NewPropertySource(
 		ProviderConfig{
@@ -440,9 +473,14 @@ func TestConsulCallsWatchMethod(t *testing.T) {
 
 func TestConsulCallsWatchMethod2(t *testing.T) {
 	ts := createTestHttpServer()
+
+	os.Setenv("microservice.namespace", "test-namespace")
+	os.Setenv("microservice.name", "test-name")
 	os.Setenv("consul.url", ts.URL)
-	defer os.Unsetenv("consul.url")
-	defer ts.Close()
+	defer func() {
+		ts.Close()
+		os.Clearenv()
+	}()
 	propertySources := []*configloader.PropertySource{configloader.EnvPropertySource()}
 	consulPropertySource := NewPropertySource(
 		ProviderConfig{

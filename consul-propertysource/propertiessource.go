@@ -46,10 +46,10 @@ type ProviderConfig struct {
 }
 
 type ProviderImpl struct {
-	cfg         ProviderConfig
-	client      *Client
-	configIndex map[string]uint64
-	watchOnce   sync.Once
+	cfg           ProviderConfig
+	client        *Client
+	configIndex   map[string]uint64
+	watchOnce     sync.Once
 	tokenProvider func() (string, error)
 }
 
@@ -106,13 +106,13 @@ func newProvider(cfg ProviderConfig) *ProviderImpl {
 	return &ProviderImpl{
 		cfg: cfg,
 		client: NewClient(ClientConfig{
-			Address:     cfg.Address,
-			Namespace:   cfg.Namespace,
-			Ctx:         cfg.Ctx,
-			Token:       token,
+			Address:       cfg.Address,
+			Namespace:     cfg.Namespace,
+			Ctx:           cfg.Ctx,
+			Token:         token,
 			tokenProvider: cfg.tokenProvider,
 		}),
-		configIndex: make(map[string]uint64),
+		configIndex:   make(map[string]uint64),
 		tokenProvider: cfg.tokenProvider,
 	}
 }
@@ -154,11 +154,11 @@ func (r *ProviderImpl) fillDefaultsIfNeeded() {
 		r.client.cfg.Ctx = r.cfg.Ctx
 	}
 	if r.cfg.Namespace == "" {
-		r.cfg.Namespace = configloader.GetOrDefaultString("microservice.namespace", "")
+		r.cfg.Namespace = configloader.GetKoanf().MustString("microservice.namespace")
 		r.client.cfg.Namespace = r.cfg.Namespace
 	}
 	if r.cfg.MicroserviceName == "" {
-		r.cfg.MicroserviceName = configloader.GetOrDefaultString("microservice.name", "")
+		r.cfg.MicroserviceName = configloader.GetKoanf().MustString("microservice.name")
 	}
 	if r.cfg.Address == "" {
 		consulUrl := configloader.GetOrDefaultString("consul.url", "")
