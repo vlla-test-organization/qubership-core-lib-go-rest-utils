@@ -216,6 +216,8 @@ func TestAddConsulPropertySource_PanicOnEmptyNamespace(t *testing.T) {
 
 func TestConsulReturnsFlattenMap(t *testing.T) {
 	ts := createTestHttpServer()
+	os.Setenv("microservice.namespace", "test-namespace")
+	os.Setenv("microservice.name", "test-name")
 	os.Setenv("consul.url", ts.URL)
 	os.Setenv("key", "env-value")
 	defer func() {
@@ -429,6 +431,8 @@ func createJsonResponse(counter int) string {
 
 func TestConsulCallsWatchMethod(t *testing.T) {
 	ts := createTestHttpServer()
+	os.Setenv("microservice.namespace", "test-namespace")
+	os.Setenv("microservice.name", "test-name")
 	os.Setenv("consul.url", ts.URL)
 	defer os.Unsetenv("consul.url")
 	defer ts.Close()
