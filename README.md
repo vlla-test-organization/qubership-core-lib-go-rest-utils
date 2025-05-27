@@ -1,3 +1,4 @@
+[![Go build](https://github.com/Netcracker/qubership-core-lib-go-rest-utils/actions/workflows/go-build.yml/badge.svg)](https://github.com/Netcracker/qubership-core-lib-go-rest-utils/actions/workflows/go-build.yml)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?metric=coverage&project=Netcracker_qubership-core-lib-go-rest-utils)](https://sonarcloud.io/summary/overall?id=Netcracker_qubership-core-lib-go-rest-utils)
 [![duplicated_lines_density](https://sonarcloud.io/api/project_badges/measure?metric=duplicated_lines_density&project=Netcracker_qubership-core-lib-go-rest-utils)](https://sonarcloud.io/summary/overall?id=Netcracker_qubership-core-lib-go-rest-utils)
 [![vulnerabilities](https://sonarcloud.io/api/project_badges/measure?metric=vulnerabilities&project=Netcracker_qubership-core-lib-go-rest-utils)](https://sonarcloud.io/summary/overall?id=Netcracker_qubership-core-lib-go-rest-utils)
