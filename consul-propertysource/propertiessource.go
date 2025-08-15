@@ -14,7 +14,7 @@ import (
 	consulApi "github.com/hashicorp/consul/api"
 	"github.com/knadh/koanf/maps"
 	"github.com/knadh/koanf/v2"
-	"github.com/netcracker/qubership-core-lib-go/v3/configloader"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/configloader"
 )
 
 const (

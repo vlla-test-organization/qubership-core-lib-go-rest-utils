@@ -13,10 +13,10 @@ import (
 
 	"github.com/avast/retry-go/v4"
 	consulApi "github.com/hashicorp/consul/api"
-	"github.com/netcracker/qubership-core-lib-go/v3/logging"
-	"github.com/netcracker/qubership-core-lib-go/v3/security"
-	"github.com/netcracker/qubership-core-lib-go/v3/serviceloader"
-	"github.com/netcracker/qubership-core-lib-go/v3/utils"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/logging"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/security"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/serviceloader"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/utils"
 )
 
 var logger logging.Logger

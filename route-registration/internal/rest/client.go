@@ -11,11 +11,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/netcracker/qubership-core-lib-go/v3/logging"
-	"github.com/netcracker/qubership-core-lib-go/v3/utils"
-	"github.com/netcracker/qubership-core-lib-go/v3/const"
-	"github.com/netcracker/qubership-core-lib-go/v3/serviceloader"
-	"github.com/netcracker/qubership-core-lib-go/v3/security"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/const"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/logging"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/security"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/serviceloader"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/utils"
 )
 
 var log logging.Logger
@@ -70,7 +70,7 @@ func (client *ControlPlaneClient) SendRequest(request RegistrationRequest) {
 
 func (client *ControlPlaneClient) sendRequestWithRetry(url string, payload []byte) {
 	client.retryManager.DoWithRetry(func() error {
-	    tokenProvider := serviceloader.MustLoad[security.TokenProvider]()
+		tokenProvider := serviceloader.MustLoad[security.TokenProvider]()
 		token, err := tokenProvider.GetToken(context.Background())
 		if err != nil {
 			log.Errorf("Go error %+v during receiving m2m token", err.Error())
@@ -82,7 +82,9 @@ func (client *ControlPlaneClient) sendRequestWithRetry(url string, payload []byt
 			return err
 		}
 		req.Header.Set("Content-Type", "application/json")
-		if token != "" { req.Header.Set("Authorization", "Bearer " + token) }
+		if token != "" {
+			req.Header.Set("Authorization", "Bearer "+token)
+		}
 		client := utils.GetClient()
 		resp, err := client.Do(req)
 		if err != nil {

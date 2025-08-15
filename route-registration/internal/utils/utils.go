@@ -6,8 +6,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/netcracker/qubership-core-lib-go/v3/configloader"
-	"github.com/netcracker/qubership-core-lib-go/v3/const"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/configloader"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/const"
 )
 
 // RouteType stands for the type of route to be registered.

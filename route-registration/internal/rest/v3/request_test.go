@@ -4,9 +4,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/netcracker/qubership-core-lib-go-rest-utils/v2/route-registration/internal/rest"
-	"github.com/netcracker/qubership-core-lib-go-rest-utils/v2/route-registration/internal/utils"
 	"github.com/stretchr/testify/assert"
+	"github.com/vlla-test-organization/qubership-core-lib-go-rest-utils/v2/route-registration/internal/rest"
+	"github.com/vlla-test-organization/qubership-core-lib-go-rest-utils/v2/route-registration/internal/utils"
 )
 
 const (

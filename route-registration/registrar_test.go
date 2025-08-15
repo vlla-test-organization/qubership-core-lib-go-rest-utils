@@ -3,9 +3,9 @@ package routeregistration
 import (
 	"testing"
 
-	"github.com/netcracker/qubership-core-lib-go/v3/configloader"
-	"github.com/netcracker/qubership-core-lib-go-rest-utils/v2/route-registration/internal/utils"
 	"github.com/stretchr/testify/assert"
+	"github.com/vlla-test-organization/qubership-core-lib-go-rest-utils/v2/route-registration/internal/utils"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/configloader"
 )
 
 const (

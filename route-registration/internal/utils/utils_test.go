@@ -4,8 +4,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/netcracker/qubership-core-lib-go/v3/configloader"
 	"github.com/stretchr/testify/assert"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/configloader"
 )
 
 func TestGetDeploymentVersion_WithDeploymentVersion(t *testing.T) {

@@ -1,9 +1,9 @@
 package v3
 
 import (
-	"github.com/netcracker/qubership-core-lib-go/v3/logging"
-	"github.com/netcracker/qubership-core-lib-go-rest-utils/v2/route-registration/internal/rest"
-	"github.com/netcracker/qubership-core-lib-go-rest-utils/v2/route-registration/internal/utils"
+	"github.com/vlla-test-organization/qubership-core-lib-go-rest-utils/v2/route-registration/internal/rest"
+	"github.com/vlla-test-organization/qubership-core-lib-go-rest-utils/v2/route-registration/internal/utils"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/logging"
 )
 
 var log logging.Logger
@@ -186,7 +186,7 @@ type routeMatch struct {
 	HeaderMatchers []headerMatcher `json:"headers"`
 }
 
-// TODO recheck after service mesh discussion 
+// TODO recheck after service mesh discussion
 type tls struct {
 	Enabled   bool   `json:"enabled"`
 	Insecure  bool   `json:"insecure"`

@@ -4,12 +4,12 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/netcracker/qubership-core-lib-go/v3/configloader"
-	"github.com/netcracker/qubership-core-lib-go/v3/logging"
-	"github.com/netcracker/qubership-core-lib-go-rest-utils/v2/route-registration/internal/rest"
-	v3 "github.com/netcracker/qubership-core-lib-go-rest-utils/v2/route-registration/internal/rest/v3"
-	"github.com/netcracker/qubership-core-lib-go-rest-utils/v2/route-registration/internal/utils"
-	"github.com/netcracker/qubership-core-lib-go/v3/const"
+	"github.com/vlla-test-organization/qubership-core-lib-go-rest-utils/v2/route-registration/internal/rest"
+	v3 "github.com/vlla-test-organization/qubership-core-lib-go-rest-utils/v2/route-registration/internal/rest/v3"
+	"github.com/vlla-test-organization/qubership-core-lib-go-rest-utils/v2/route-registration/internal/utils"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/configloader"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/const"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/logging"
 )
 
 var log logging.Logger

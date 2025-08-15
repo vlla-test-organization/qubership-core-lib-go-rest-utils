@@ -1,6 +1,6 @@
 package configserver
 
-import "github.com/netcracker/qubership-core-lib-go/v3/configloader"
+import "github.com/vlla-test-organization/qubership-core-lib-go/v3/configloader"
 
 type PropertySourceConfiguration struct {
 	MicroserviceName string // name of microservice

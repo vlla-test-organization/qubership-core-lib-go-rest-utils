@@ -12,11 +12,11 @@ import (
 
 	"github.com/knadh/koanf/maps"
 	"github.com/knadh/koanf/v2"
-	"github.com/netcracker/qubership-core-lib-go/v3/configloader"
-	constants "github.com/netcracker/qubership-core-lib-go/v3/const"
-	"github.com/netcracker/qubership-core-lib-go/v3/security"
-	"github.com/netcracker/qubership-core-lib-go/v3/serviceloader"
-	"github.com/netcracker/qubership-core-lib-go/v3/utils"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/configloader"
+	constants "github.com/vlla-test-organization/qubership-core-lib-go/v3/const"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/security"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/serviceloader"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/utils"
 )
 
 type configServerLoader struct {

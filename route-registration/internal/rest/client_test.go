@@ -7,13 +7,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/netcracker/qubership-core-lib-go/v3/configloader"
-	"github.com/netcracker/qubership-core-lib-go/v3/serviceloader"
-	"github.com/netcracker/qubership-core-lib-go/v3/security"
 	"github.com/stretchr/testify/assert"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/configloader"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/security"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/serviceloader"
 )
 
-func init () {
+func init() {
 	serviceloader.Register(2, &security.DummyToken{})
 }
 
@@ -70,7 +70,7 @@ func TestControlPlaneClient_SendRequest(t *testing.T) {
 		handle: successfulResponse,
 	})
 	testServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-	mockHandlers[0].handle(w, r)
+		mockHandlers[0].handle(w, r)
 
 	}))
 	defer func() {

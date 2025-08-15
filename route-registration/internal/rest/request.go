@@ -1,7 +1,7 @@
 package rest
 
 import (
-	"github.com/netcracker/qubership-core-lib-go-rest-utils/v2/route-registration/internal/utils"
+	"github.com/vlla-test-organization/qubership-core-lib-go-rest-utils/v2/route-registration/internal/utils"
 )
 
 type RequestFactory interface {
