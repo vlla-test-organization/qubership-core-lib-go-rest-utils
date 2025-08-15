@@ -4,6 +4,10 @@ go 1.23.0
 
 toolchain go1.24.2
 
+retract (
+    v2.0.1
+)
+
 require (
 	github.com/avast/retry-go/v4 v4.6.1
 	github.com/hashicorp/consul/api v1.32.0
