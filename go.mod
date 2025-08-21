@@ -1,6 +1,6 @@
 module github.com/vlla-test-organization/qubership-core-lib-go-rest-utils/v2
 
-go 1.23.0
+go 1.23
 
 toolchain go1.24.2
 
